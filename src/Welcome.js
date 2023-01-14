@@ -11,10 +11,19 @@ function Welcome() {
 const[sidebar,setSidebar]=useState(true)
 const[rightpart,setRightpart]=useState(true)
 
+const[firsttouch,setFirsttouch]=useState(false)
+
+// firsttouch(forsidebar());
 
 const forsidebar=()=>{
   setSidebar(!sidebar)
   setRightpart(!rightpart)
+}
+const fortouch=()=>{
+if(!firsttouch){
+setFirsttouch(true)
+forsidebar()
+}
 }
 
   return (
@@ -65,7 +74,9 @@ const forsidebar=()=>{
 <div className="swipe_btn" onClick={forsidebar}><p>::::</p></div>
 
 </div>
-<div className="for_outlets">
+<div className="for_outlets" onClick={fortouch}>
+{/* <div className="fake"></div> */}
+
 <Outlet/>
   
   </div>
