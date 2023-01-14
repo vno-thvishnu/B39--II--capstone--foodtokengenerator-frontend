@@ -461,3 +461,10 @@ border-bottom-left-radius: 50px;
   /* background-color: #f4a700; */
 }
 }
+
+@media only screen and (max-height: 400px){
+  .logo{
+    width: 35px; 
+    height: 35px;
+  }
+}
