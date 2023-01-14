@@ -361,6 +361,12 @@ border-bottom-left-radius: 50px;
   margin-top: 0px;
   /* background-color: rgb(3, 3, 3); */
 }
+.on{
+  font-size: 18vw;
+}
+.the,.kitchen_club{
+  font-size: 6vw;
+}
 .kitchen_club{
   text-align: end;
   right: 0;
