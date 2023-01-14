@@ -239,3 +239,15 @@ margin-bottom: 10px;
 }
 }
 
+@media only screen and (max-height: 400px){
+#login_input,#login_input_password{
+    margin-top: 2vh;
+}
+#password_div{
+    margin-top: 2vh;
+}
+.login_btn{
+    height: 5vh;
+    margin: 3vh;
+}
+}
