@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Allmodal from "./Modals/Allmodal";
 // import Allmodal from "./Modals/Allmodal";
+import './Design.css'
 
 import burger from "./vectors/burger a.png";
 import logowhite from "./vectors/logo4.png";
@@ -18,6 +19,7 @@ const[firsttouch,setFirsttouch]=useState(false)
 const forsidebar=()=>{
   setSidebar(!sidebar)
   setRightpart(!rightpart)
+// setFirsttouch(true)
 }
 const fortouch=()=>{
 if(!firsttouch){

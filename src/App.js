@@ -2,12 +2,15 @@ import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Welcome from './Welcome';
-import './Design.css'
+// import './Design.css'
+// import './Admin components/constantcolors.css'
 import Login from './verification/Login';
 import Adminregister from './verification/Adminregister';
 import Userregister from './verification/Userregister';
 import Forgotpassword from './verification/Forgotpassword';
 import Changepassword from './verification/Changepassword';
+import Admin from './Admin components/Admin';
+import Add_dishes from './Admin components/Add_dishes';
 // import './Modals/Allmodal'
 
 function App() {
@@ -23,6 +26,8 @@ function App() {
       <Route path="/user_register" element={<Userregister/>}/>
 
     </Route>
+    <Route path='/admin_dashboard' element={<Admin/>}/>
+    <Route path='/admin_add_dishes' element={<Add_dishes/>}/>
    </Routes>
    </BrowserRouter>
    </>

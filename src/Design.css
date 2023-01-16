@@ -8,6 +8,9 @@
 display: flex;
   min-width: 100vw;
   min-height: 100vh;
+  /* overscroll-behavior-y: ;  */
+  /* scroll-behavior: smooth; */
+  /* overflow:scroll; */
 }
 .welcome_sidebar {
   width: 10%;
@@ -474,6 +477,11 @@ border-bottom-left-radius: 50px;
 }
 
 @media only screen and (max-height: 400px){
+  .overall_bg{
+    /* overflow:-moz-hidden-unscrollable; */
+    /* position: fixed; */
+    overflow-y:scroll;
+  }
   .logo{
     width: 35px; 
     height: 35px;
