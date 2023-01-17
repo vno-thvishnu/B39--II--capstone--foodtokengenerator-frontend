@@ -483,7 +483,15 @@ border-bottom-left-radius: 50px;
     overflow-y:scroll;
   }
   .logo{
-    width: 35px; 
-    height: 35px;
+    width: 17px; 
+    height: 17px;
+    padding: 1px;
+  }
+  .display_bar{
+        width: 25%;
+    height: 45%
+  }
+  .display_bar>h5{
+    font-size: 2vw;
   }
 }
