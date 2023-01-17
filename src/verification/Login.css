@@ -245,14 +245,20 @@ margin-bottom: 10px;
 }
 
 @media only screen and (max-height: 400px){
+    .input_groups{
+        display: flex;
+        gap: 0.3rem;
+    }
 #login_input,#login_input_password{
-    margin-top: 2vh;
+    margin-top: 3vh;
+    height: 7vh;
 }
 #password_div{
-    margin-top: 2vh;
+    margin-top: 3vh;
+    height: 7vh;
 }
 .login_btn{
-    height: 5vh;
+    height: 7vh;
     margin: 3vh;
 }
 }
