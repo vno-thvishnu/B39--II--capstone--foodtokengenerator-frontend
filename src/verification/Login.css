@@ -250,15 +250,15 @@ margin-bottom: 10px;
         gap: 0.3rem;
     }
 #login_input,#login_input_password{
-    margin-top: 3vh;
+    margin-top: 1vh;
     height: 7vh;
 }
 #password_div{
-    margin-top: 3vh;
+    margin-top: 1vh;
     height: 7vh;
 }
 .login_btn{
     height: 7vh;
-    margin: 3vh;
+    margin: 1.5vh;
 }
 }
