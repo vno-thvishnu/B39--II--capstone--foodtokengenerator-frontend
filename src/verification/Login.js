@@ -18,7 +18,8 @@ function Login() {
       setDisplaymsg,
       setLoginsuccessModal,
 setLoginsuccessRouter,
-setAlertmodal
+setAlertmodal,
+setLoginBy
 } = useContext(UserContext)
   
     const formik = useFormik({
@@ -53,23 +54,27 @@ setAlertmodal
       onSubmit: async (values) => {
         try {
           const server = await axios.post(`${config.api}/login`, values);
+          console.log(server)
           if(server.data.message==="email or password incorrect"){
             setFailModal(true)
             setDisplaymsg(server.data.message)
           }
           if(server.data.message==="User Login successfully"){
+            setLoginBy(server.data)            
             setLoginsuccessRouter("/user_dashboard")
             setLoginsuccessModal(true)
             setDisplaymsg(server.data.message)
                       formik.resetForm();
           }
           if(server.data.message==="Admin Login successfully"){
+            setLoginBy(server.data)            
             setLoginsuccessRouter("/admin_dashboard")
             setLoginsuccessModal(true)
             setDisplaymsg(server.data.message)
                       formik.resetForm();
           }
           if(server.data.message==="Finded user & admin account successfully"){
+            setLoginBy(server.data)            
             setAlertmodal(true)
             setDisplaymsg(server.data.message)
             formik.resetForm();

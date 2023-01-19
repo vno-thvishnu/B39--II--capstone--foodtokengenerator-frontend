@@ -4,9 +4,15 @@ import axios from "axios";
 import { config } from "../config";
 
 import "./Add_dishes.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Add_dishes() {
+ 
+  const navigate=useNavigate();
+
   const formik = useFormik({
     initialValues: {
       dish_name: "",
@@ -14,33 +20,135 @@ function Add_dishes() {
       url: "",
       dish_type: "",
       price: "",
-      quantity:"",
-      status:"",
-      country:"",
+      quantity: "",
+      status: "",
+      country: "",
+      description:"",
     },
     validate: (values) => {
       let error = {};
 
-      if (values.name === "") {
-        error.name = "please enter Name";
+      if (values.dish_name === "") {
+        error.dish_name = "please enter Name";
       }
-      if (values.name && (values.name.length <= 2 || values.name.length > 15)) {
-        error.name = "Name must be between 3 to 15 characters";
+      if (values.dish_name && (values.dish_name.length <= 2 || values.dish_name.length > 25)) {
+        error.dish_name = "Name must be between 3 to 25 characters";
       }
-      
+      if (values.veg_or_nonveg === "") {
+        error.veg_or_nonveg = "please select one";
+      }
+      if (values.url === "") {
+        error.url = "please enter Url";
+      }
+// if(values.url && 
+  // /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm
+  // /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/ 
+// ){
+//   error.url="please enter valid Url"
+// }
+if (values.dish_type === "") {
+  error.dish_type = "please choose one";
+}
+if (values.price === "" && values.quantity) {
+  error.price = "please enter price";
+}
+if (values.quantity === "" && values.price) {
+  error.quantity = "please enter quantity";
+}
+if (values.quantity === "" && values.price==="") {
+  error.price=" "
+  error.quantity = "please enter price and quantity";
+}
+if (values.status === "") {
+  error.status = "please select one";
+}
+if (values.country === "") {
+  error.country = "please choose one";
+}
+if (values.description === "") {
+  error.description = "please enter description";
+}
+if (values.description && (values.description.length <= 20 || values.description.length > 100)) {
+  error.description = "Description must be between 20 to 100 characters";
+}
       return error;
     },
     onSubmit: async (values) => {
+        
+          
       try {
-        const server = await axios.post(`${config.api}/user/register`, values);
+        // toastId.current = toast.loading('wait a second', {
+        //     position: "bottom-right",
+        //     autoClose: true,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "colored",
+        //     });
+        // const id=toast.loading('wait a second', {
+        //   position: "bottom-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "colored",
+        //   });
+        // toast("Default Notification !");
+        // toast("Default Notification !");
+
+        const server = await axios.post(`${config.api}/admin/add_dishes`, values);
+
+        // toast.update(toastId.current, {
+        //   type: toast.TYPE.SUCCESS,
+        //   autoClose: 50000,
+        //   closeButton: null 
+        // });
+       // toast.update(toastId.current,{
+        //   position: "bottom-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "colored",
+        //   });
         if (
-          server.data.message === "Email-id already registered, use another"
+          server.data.message ==="Dish name already there, use another"
         ) {
+          toast.warn(`${server.data.message}`, {
+            position: "bottom-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
-        if (server.data.message === "User Account created successfully") {
+        if (server.data.message === "Dish added successfully") {
+          toast.success(`${server.data.message}`, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+// navigate("/admin_dashboard")
+setTimeout(()=> navigate("/admin_dashboard"), 3500)
+setTimeout(()=> formik.resetForm(), 3000)
+
+
         }
-        if (server.data.message === "Admin account finded in this email_id") {
-        }
+       
       } catch (error) {
         alert("error");
       }
@@ -63,7 +171,11 @@ function Add_dishes() {
             required
             id="add_input"
             className={`
-                ${formik.touched.dish_name && formik.errors.dish_name ? "error-box" : ""}
+                ${
+                  formik.touched.dish_name && formik.errors.dish_name
+                    ? "error-box"
+                    : ""
+                }
                 ${
                   formik.touched.dish_name && !formik.errors.dish_name
                     ? "success-box"
@@ -75,9 +187,9 @@ function Add_dishes() {
           {formik.touched.dish_name && formik.errors.dish_name ? (
             <span className="add_err">{formik.errors.dish_name} </span>
           ) : null}
-          <div
-            id="add_div_row"
-          
+
+          <div id="add_div_row"
+       
           >
             <div id="add_div_row_inside">
               <input
@@ -88,6 +200,7 @@ function Add_dishes() {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 required
+                
               />
               <label className="add_label_main">Vegetarian</label>
             </div>
@@ -105,6 +218,9 @@ function Add_dishes() {
               <label className="add_label_main">Non-Vegetarian</label>
             </div>
           </div>
+          {formik.touched.veg_or_nonveg && formik.errors.veg_or_nonveg ? (
+            <span className="login_err">{formik.errors.veg_or_nonveg} </span>
+          ) : null}
 
           <div id="add_div">
             <input
@@ -127,11 +243,8 @@ function Add_dishes() {
             {formik.touched.url && formik.errors.url ? (
               <span className="login_err">{formik.errors.url} </span>
             ) : null}
-          </div> 
-           {/* {formik.touched.url && formik.errors.url ? (
-            <span className="login_err">{formik.errors.url} </span>
-          ) : null} */}
-
+          </div>
+          
 
           <select
             // placeholder=" Name"
@@ -171,23 +284,21 @@ function Add_dishes() {
             <span className="add_err">{formik.errors.dish_type} </span>
           ) : null}
 
-<div
-            id="add_div_row_70"
-          
-          >
-           
+          <div id="add_div_row_70">
             <input
-            type="text"
-            placeholder="price"
-            name="price"
-            value={"rs"}
-            // value={formik.values.price}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            id="add_input"
-            className={`
-                ${formik.touched.price && formik.errors.price ? "error-box" : ""}
+              type="number"
+              placeholder="price"
+              name="price"
+              // value={"rs"}
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              required
+              id="add_input"
+              className={`
+                ${
+                  formik.touched.price && formik.errors.price ? "error-box" : ""
+                }
                 ${
                   formik.touched.price && !formik.errors.price
                     ? "success-box"
@@ -195,24 +306,24 @@ function Add_dishes() {
                 }
 
                 `}
-          />
-          {formik.touched.price && formik.errors.price ? (
-            <span className="add_err">{formik.errors.price} </span>
-          ) : null}
-            
+            />
+           
 
-            
             <input
-            type="number"
-            placeholder="quantity"
-            name="quantity"
-            value={formik.values.quantity}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            id="add_input"
-            className={`
-                ${formik.touched.quantity && formik.errors.quantity ? "error-box" : ""}
+              type="number"
+              placeholder="quantity"
+              name="quantity"
+              value={formik.values.quantity}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              required
+              id="add_input"
+              className={`
+                ${
+                  formik.touched.quantity && formik.errors.quantity
+                    ? "error-box"
+                    : ""
+                }
                 ${
                   formik.touched.quantity && !formik.errors.quantity
                     ? "success-box"
@@ -220,18 +331,17 @@ function Add_dishes() {
                 }
 
                 `}
-          />
-          {formik.touched.price && formik.errors.price ? (
-            <span className="add_err">{formik.errors.price} </span>
-          ) : null}
-            
-          </div>
-
-
-          <div
-            id="add_div_row"
+            />
           
-          >
+          </div>
+          {formik.touched.quantity && formik.errors.quantity ? (
+              <span className="add_err">{formik.errors.quantity} </span>
+            ) : null}
+             {formik.touched.price && formik.errors.price ? (
+              <span className="add_err">{formik.errors.price} </span>
+            ) : null}
+
+          <div id="add_div_row">
             <div id="add_div_row_inside">
               <input
                 type="radio"
@@ -258,7 +368,9 @@ function Add_dishes() {
               <label className="add_label_main">Not available</label>
             </div>
           </div>
-
+          {formik.touched.status && formik.errors.status ? (
+            <span className="add_err">{formik.errors.status} </span>
+          ) : null}
 
           <select
             // placeholder=" Name"
@@ -288,8 +400,6 @@ function Add_dishes() {
             <option value="italian">italian</option>
             <option value="chinese">chinese</option>
             <option value="american">american</option>
-
-          
           </select>
           {formik.touched.country && formik.errors.country ? (
             <span className="add_err">{formik.errors.country} </span>
@@ -298,28 +408,28 @@ function Add_dishes() {
           <textarea
             type="text"
             placeholder="Description"
-            name="country"
-            value={formik.values.country}
+            name="description"
+            value={formik.values.description}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required
             id="add_input_textarea"
             className={`
                 ${
-                  formik.touched.country && formik.errors.country
+                  formik.touched.description && formik.errors.description
                     ? "error-box"
                     : ""
                 }
                 ${
-                  formik.touched.country && !formik.errors.countyr
+                  formik.touched.description && !formik.errors.description
                     ? "success-box"
                     : ""
                 }
 
                 `}
           />
-          {formik.touched.country && formik.errors.country ? (
-            <span className="add_err">{formik.errors.country} </span>
+          {formik.touched.description && formik.errors.description ? (
+            <span className="add_err">{formik.errors.description} </span>
           ) : null}
           <button
             onClick={formik.handleSubmit}
@@ -328,12 +438,24 @@ function Add_dishes() {
           >
             Create
           </button>
-          <Link to="/" className="back_btn">
+          <Link to="/admin_dashboard" className="page_back_btn">
             Back
           </Link>
         </form>
         {/* </div> */}
       </div>
+      <ToastContainer
+position="bottom-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
     </>
   );
 }

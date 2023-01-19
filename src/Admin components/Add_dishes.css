@@ -6,22 +6,36 @@
 
 .add_dishes_bg{
     background-color: var(--primary);
-    min-width: 100vw;
+    /* min-width: 100vw; */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* padding-top: 3rem;
+    padding-bottom: 3rem; */
     padding: 3rem;
 
+/* overflow: hidden;     */
+}
+
+.add_dishes_bg ::-webkit-scrollbar{
+    display:none;
+}
+
+.add_dishes_bg{
+    -ms-overflow-style: none;
 }
 .add_box{
     background-color: var(--tertiary);
     width: 40%;
+    /* height: 100vh; */
+     /* overflow: visible; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 25px;
+/* overflow-y: scroll; */
 }
 .add_box>h2{
     margin: 15px;
@@ -45,15 +59,17 @@
     
 }
 #add_input_textarea{
-    border:2px solid rgb(78, 15, 109,0.2) !important ;
-    border-bottom:2px solid var(--primary) !important ;
+    height: 6rem !important;
+    border:2px solid rgb(78, 15, 109,0.2) ;
+    border-bottom:2px solid var(--primary)  ;
     margin-top: 35px !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-
-
-
+/* overflow:auto !important;
+scroll-behavior: smooth; */
 }
+
+
 #add_div,#add_div_row,#add_div_row_70{
   
     background: none;

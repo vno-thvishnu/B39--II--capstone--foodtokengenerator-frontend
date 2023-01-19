@@ -18,6 +18,8 @@ export const UserProvider =({children})=>{
 
     const [displaymsg,setDisplaymsg]=useState([]);
 
+    const [loginBy,setLoginBy]=useState([])
+
     return(
         <UserContext.Provider value={{failModal,setFailModal,
             successModal,setSuccessModal,
@@ -26,6 +28,7 @@ export const UserProvider =({children})=>{
         loginsuccessRouter,setLoginsuccessRouter,
         alertmodal,setAlertmodal,
         // postagain,setPostagain
+        loginBy,setLoginBy
         }}>
             {children}
         </UserContext.Provider>
