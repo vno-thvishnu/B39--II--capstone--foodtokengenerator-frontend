@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import React from "react";
 import axios from "axios";
 import { config } from "../config";
-
+// import {food_banner} from "..vectors/food_banner.png"
 import "./Add_dishes.css";
 import { Link, useNavigate } from "react-router-dom";
 

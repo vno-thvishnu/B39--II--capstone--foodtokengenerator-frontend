@@ -6,6 +6,9 @@
 
 .add_dishes_bg{
     background-color: var(--primary);
+    /* background-image: url("../vectors/food_banner.png"); */
+    /* mix-blend-mode: lighten; */
+    /* background-blend-mode: soft-light; */
     /* min-width: 100vw; */
     min-height: 100vh;
     display: flex;

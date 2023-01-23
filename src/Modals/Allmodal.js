@@ -18,6 +18,7 @@ setAlertmodal,
 // setPostagain,
 // postagain
 } = useContext(UserContext)
+ 
 
 const backfunction=()=>{
     setFailModal(false)
@@ -35,6 +36,7 @@ setLoginsuccessModal(false)
 const backfunctionfour=()=>{
   setAlertmodal(false)
   setCheck(false)
+  navigate(openlink)
   }
 
 const[check,setCheck]=useState(false)
@@ -162,9 +164,9 @@ const user=()=>{
 </div>
 </div>
           {check?(
-             <Link className='popup_btn_alert'  to={openlink}  onClick={backfunctionfour}>
+             <button type='button' className='popup_btn_alert'    onClick={backfunctionfour}>
                 Open
-           </Link>
+           </button>
           ):
           <div className='popup_btn_alert_low'  >
           Open

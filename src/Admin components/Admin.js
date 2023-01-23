@@ -44,7 +44,7 @@ const[storeLoginby,setStoreLoginby]=useState([])
     setForDelete(true)
   }, []);
 
-  let fetchData = async () => {
+  const fetchData = async () => {
     try {
       setLoading(true);
       const server = await axios.get(`${config.api}/admin/view_dishes`);
@@ -201,7 +201,16 @@ setTimeout(()=> closeView(), 1500)
               )}
             </div>
           </div>
-          <div className="side_content"></div>
+          <div className="side_content">
+            <div className="token_box">
+              <div className="token_box_top">
+                <h4>Tokens</h4>
+              </div>
+              <div className="token_box_bottom">
+                heloo000000000000000000000000000000
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
