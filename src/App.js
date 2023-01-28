@@ -13,6 +13,7 @@ import Admin from './Admin components/Admin';
 import Add_dishes from './Admin components/Add_dishes';
 import Edit_dishes from './Admin components/Edit_dishes';
 import User from './User components/User';
+import Orderhistory from './Admin components/Orderhistory';
 // import './Modals/Allmodal'
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
     <Route path='/admin_dashboard' element={<Admin/>}/>
     <Route path='/admin_add_dishes' element={<Add_dishes/>}/>
     <Route path='/admin_edit_dishes/:_id' element={<Edit_dishes/>}/>
+    <Route path='/admin_orderhistory' element={<Orderhistory/>}/>
+
 
     <Route path='/user_dashboard' element={<User/>}/>
    </Routes>

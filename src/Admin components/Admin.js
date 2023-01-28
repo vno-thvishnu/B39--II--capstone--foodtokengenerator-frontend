@@ -8,6 +8,9 @@ import { config } from "../config";
 import axios from "axios";
 import { AiOutlineFullscreen } from "react-icons/ai";
 import{RiEditBoxFill,RiDeleteBin6Fill} from "react-icons/ri"
+import {IoMdRefreshCircle} from "react-icons/io"
+import { MdAccountCircle } from "react-icons/md";
+
 import { UserContext } from "../UserContext";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,13 +18,25 @@ import 'react-toastify/dist/ReactToastify.css';
 function Admin() {
 
   //to get logined person name
-  const { loginBy } = useContext(UserContext);
-  console.log(loginBy.admin_id);
+  // const { loginBy } = useContext(UserContext);
+  // console.log(loginBy.admin_id);
+
+  const removeLocalstorgae=()=>{
+    localStorage.removeItem("loginperson_user")
+    localStorage.removeItem("loginperson_admin")
+  
+    navigate("/")
+  
+  }
+const routerorderhistory=()=>[
+  navigate("/admin_orderhistory")
+]
+
 const[storeLoginby,setStoreLoginby]=useState([])
 
   const getLoginBy = async () => {
     try {
-      const server = await axios.get(`${config.api}/admin/login_by/${loginBy.admin_id}`);
+      const server = await axios.get(`${config.api}/admin/login_by/${localStorage.getItem("loginperson_admin")}`);
       setStoreLoginby(server.data);
     } catch (error) {
       // alert("error");
@@ -40,6 +55,7 @@ const[storeLoginby,setStoreLoginby]=useState([])
   useEffect(() => {
     getLoginBy()
     fetchData();
+    getordersloading()
     setView(false)
     setForDelete(true)
   }, []);
@@ -81,7 +97,7 @@ setLoadingTwo(false)
   const closeView=()=>{
     setView(false)
     setForDelete(true)
-    fetchData()
+    // fetchData()
 
   }
   const dontDelete=()=>{
@@ -115,8 +131,112 @@ setTimeout(()=> closeView(), 1500)
   }
   // console.log(singleDish);
   // console.log(singleDish.url);
+  const [newOrder,setNewOrder]=useState([])
+  const[isLoadingThree,setLoadingthree]=useState(false)
+  const getordersloading=async()=>{
+    try {
+      setLoadingthree(true)
+      const getting = await axios.get(`${config.api}/admin/view_tokens`);
+      console.log(getting.data)
+      setNewOrder(getting.data)
+      setLoadingbutton(false)
+      setLoadingthree(false)
+  
+  
+    } catch (error) {
+      alert("error")
+    }
+  }
+const getorders=async()=>{
+  try {
+    // setLoadingthree(true)
+    const getting = await axios.get(`${config.api}/admin/view_tokens`);
+    console.log(getting.data)
+    setNewOrder(getting.data)
+    setLoadingbutton(false)
+    // setLoadingthree(false)
 
 
+  } catch (error) {
+    alert("error")
+  }
+}
+
+const[openMore,setOpenMore]=useState(false)
+const[isLoadingMore,setLoadingMore]=useState(false)
+const[getMoreDetails,setGetMoreDetails]=useState([])
+const openmoredetails=()=>{
+setOpenMore(true)
+}
+
+const closemoredetails=()=>{
+  setOpenMore(false)
+}
+
+const getdetails=async(e)=>{
+  try {
+    setLoadingMore(true)
+    const getting = await axios.get(`${config.api}/admin/order_details/${e}`);
+    console.log(getting.data)
+    setLoadingMore(false)
+    setGetMoreDetails(getting.data)
+
+    
+  } catch (error) {
+    alert("error")
+    
+  }
+}
+const[isLoadingbutton,setLoadingbutton]=useState(false)
+const[buttonIdpass,setButtonIdpass]=useState([])
+
+const changetopicked=async(e)=>{
+  try {
+    setLoadingbutton(true)
+    const edit = await axios.put(`${config.api}/admin/order_status_picked/${e}`);
+    if(edit.data.message==="Order picked"){
+      getorders()
+      toast(`${edit.data.message}`, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+ 
+
+    }
+  } catch (error) {
+    alert("error")
+  }
+}
+const changetodelivered=async(e,f,g)=>{
+  
+  try {
+    setLoadingbutton(true)
+    const edit = await axios.put(`${config.api}/admin/order_status_delivered/${e}`,{user_email:f,token:g});
+    if(edit.data.message==="Order ready to delivery"){
+      getorders()
+      toast(`${edit.data.message}`, {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+ 
+
+    }
+  } catch (error) {
+    alert("error")
+  }
+}
   return (
     <>
       <div className="_bg">
@@ -126,10 +246,22 @@ setTimeout(()=> closeView(), 1500)
             <span>kitchen</span>
           </div>
           <div className="others">
-            <span>|</span>
-            <span></span>
+          <ul>
+              <li>Home</li>
+           <li onClick={routerorderhistory}>Order history</li>
 
-            <span>{storeLoginby.name}</span>
+              <li onClick={removeLocalstorgae}>Logout</li>
+            </ul>
+          
+            <div className="login_person">
+              <span>|</span>
+              <span>
+                <MdAccountCircle />
+              </span>
+
+              <span>{storeLoginby.name}</span>
+            </div>
+         
           </div>
         </div>
         <h3 className="head">Admin - Dashboard</h3>
@@ -207,7 +339,72 @@ setTimeout(()=> closeView(), 1500)
                 <h4>Tokens</h4>
               </div>
               <div className="token_box_bottom">
-                heloo000000000000000000000000000000
+              <button onClick={getordersloading} className="refresh_btn"> 
+<IoMdRefreshCircle  className="refresh_btn_icon" />refresh
+</button>
+             {isLoadingThree?<>
+              <div class="blocks">
+                    <div class="block orange"></div>
+                    <div class="block blue"></div>
+                  </div>
+             </>:
+             <> 
+                {newOrder.slice().reverse().map((get,index)=>(
+                  <>
+                  {get.order_status==="delivered"?"":<>
+                  <div className="inside_token_box_bottom">
+                   <div className="token_data">
+                   {/* <h4>{index+1}</h4> */}
+                    <h4>{get.token}</h4>
+                    <h6>paid: {get.total_amount}</h6>
+
+{get.order_status ==="droped"?
+                    <button className="token_data_droped" onClick={()=>{changetopicked(get._id);setButtonIdpass(get._id)}}>
+                      {isLoadingbutton && get._id===buttonIdpass?<>
+                        <>
+                                        <div class="blocks ">
+                                          <div class="block orange forbtnspinner"></div>
+                                          <div class="block blue forbtnspinner"></div>
+                                        </div>
+                                      </>
+                      </>: <>pick !</>}
+                    </button>
+:null
+}     
+{get.order_status ==="picked"?
+ <button className="token_data_picked" onClick={()=>{changetodelivered(get._id,get.user_email,get.token);setButtonIdpass(get._id)}}>
+ {isLoadingbutton && get._id===buttonIdpass?<>
+   <>
+                   <div class="blocks ">
+                     <div class="block orange forbtnspinner"></div>
+                     <div class="block blue forbtnspinner"></div>
+                   </div>
+                 </>
+ </>: <> over ! </>}
+</button>
+:null
+}                                 </div>
+                   <div className="more_details">
+                    <h6 onClick={()=>{openmoredetails();getdetails(get._id);}}>more details</h6>
+                    {get.ordered_dishes.map((get)=>(
+                      <div className="inside_more_details">
+<p>{get.dish_name}</p>
+<p>price: {get.dish_price}</p>
+<p>quantity: {get.qty}</p>
+<p>total: {get.price_X_qty}</p>
+
+
+</div>
+
+                    ))}
+                   </div>
+                  </div>
+                  
+                  </>}
+                  </>
+                ))}
+             </>
+             }
               </div>
             </div>
           </div>
@@ -271,6 +468,43 @@ setTimeout(()=> closeView(), 1500)
           </div>
         </>
       ) : null}
+
+      {openMore?(<>
+      
+        <div  className="view_bg">
+          <div onClick={closemoredetails}className="view_bg_two">  </div>
+          <div className="view_box_two">
+{isLoadingMore?<>
+  <div class="blocks blockstwo">
+                    <div class="block orange"></div>
+                    <div class="block blue"></div>
+                  </div>
+</>:<>
+
+  <div className="more_box">
+    <div className="more_box_top">
+      <h3>Customer details</h3>
+<div className="indise_more_box_top">
+<h5>Name : {getMoreDetails.user_name}</h5>
+<h5>Email : {getMoreDetails.user_email}</h5>
+
+</div>
+    </div>
+    <div className="more_box_bottom">
+      <h3>Order details</h3>
+      <div className="indise_more_box_bottom">
+      <h5>Date : {getMoreDetails.date}</h5>
+<h5>Time : {getMoreDetails.time}</h5>
+</div>
+    </div>
+  </div>
+  
+
+</>}
+
+          </div>
+          </div>
+      </>):null}
 
 <ToastContainer
 position="bottom-right"

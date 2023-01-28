@@ -95,8 +95,8 @@ if (values.country === "") {
 if (values.description === "") {
   error.description = "please enter description";
 }
-if (values.description && (values.description.length <= 20 || values.description.length > 60)) {
-  error.description = "Description must be between 20 to 60 characters";
+if (values.description && (values.description.length <= 20 || values.description.length > 100)) {
+  error.description = "Description must be between 20 to 100 characters";
 }
       return error;
     },

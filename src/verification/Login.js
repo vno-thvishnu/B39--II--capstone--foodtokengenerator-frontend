@@ -60,7 +60,10 @@ setLoginBy
             setDisplaymsg(server.data.message)
           }
           if(server.data.message==="User Login successfully"){
-            setLoginBy(server.data)            
+            setLoginBy(server.data) 
+            localStorage.setItem("loginperson_user",server.data.user_id)   
+
+            localStorage.setItem("loginperson",server.data.user_id)           
             setLoginsuccessRouter("/user_dashboard")
             setLoginsuccessModal(true)
             setDisplaymsg(server.data.message)
@@ -68,6 +71,8 @@ setLoginBy
           }
           if(server.data.message==="Admin Login successfully"){
             setLoginBy(server.data)            
+            localStorage.setItem("loginperson_admin",server.data.admin_id)           
+
             setLoginsuccessRouter("/admin_dashboard")
             setLoginsuccessModal(true)
             setDisplaymsg(server.data.message)
@@ -75,6 +80,11 @@ setLoginBy
           }
           if(server.data.message==="Finded user & admin account successfully"){
             setLoginBy(server.data)            
+            // console.log(server.data)
+
+            localStorage.setItem("loginperson_user",server.data.user_id)   
+            localStorage.setItem("loginperson_admin",server.data.admin_id)           
+
             setAlertmodal(true)
             setDisplaymsg(server.data.message)
             formik.resetForm();
