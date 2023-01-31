@@ -7,18 +7,22 @@ import { MdAccountCircle } from "react-icons/md";
 import { TbListSearch } from "react-icons/tb";
 import { TbPaperBag } from "react-icons/tb";
 import { MdRemoveCircle } from "react-icons/md";
-import {IoMdRefreshCircle} from "react-icons/io"
+import { IoMdRefreshCircle } from "react-icons/io";
 import veg from "../vectors/veg.png";
 import nveg from "../vectors/nveg.png";
 import cardpay from "../vectors/cardpayment.png";
 import upipay from "../vectors/upi.png";
 import netpay from "../vectors/netbanking.png";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import b1 from "../vectors/b1.jpg";
+import b2 from "../vectors/b2.jpg";
+import b3 from "../vectors/b3.jpg";
+import b4 from "../vectors/b4.jpg";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
-// import { Navigation, Pagination, Autoplay } from 'swiper';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -28,14 +32,7 @@ import { IconContext } from "react-icons";
 
 function User() {
   const navigate = useNavigate();
-  // const [count , setCount] = [2, 3, 1, 10];
-  // count[0] == 2
-  // count[2] == 1
-  // setCount(...count, count[3] = 10);
 
-  //to get logined person name
-
-  // const { loginBy } = useContext(UserContext);
   const [storeLoginby, setStoreLoginby] = useState([]);
   const removeLocalstorgae = () => {
     localStorage.removeItem("loginperson_user");
@@ -52,14 +49,12 @@ function User() {
         )}`
       );
       setStoreLoginby(server.data);
-      console.log(server.data);
 
       getcartid();
     } catch (error) {
       // alert("error");
     }
   };
-  // console.log(storeLoginby.cart_list)
 
   useEffect(() => {
     getLoginBy();
@@ -76,14 +71,8 @@ function User() {
 
       const server = await axios.get(`${config.api}/admin/view_dishes`);
       setDishData(server.data);
-      console.log(server.data);
 
       setLoading(false);
-
-      // const boo = dishData.map((dish,index)=>{
-      //  return dish._id ===storeLoginby.cart_list
-      // })
-      // console.log(boo)
     } catch (error) {
       alert("error");
     }
@@ -102,8 +91,6 @@ function User() {
   const [buttonloading, setButtonloading] = useState(false);
   const addtocart = async (e) => {
     try {
-      // console.log(e)
-      // setLoading(true);
       setButtonloading(true);
       const putting = await axios.put(
         `${config.api}/user/addtocart/${localStorage.getItem(
@@ -112,11 +99,9 @@ function User() {
         { dish_id: e }
       );
       getLoginBy();
-      // fetchData()
       fetchDataNoloading();
 
       getcartid();
-      // setLoading(false);
     } catch (error) {
       alert("error");
     }
@@ -124,38 +109,29 @@ function User() {
 
   // to open cart
   const [viewCart, setViewCart] = useState(false);
-  const [openNext, setOpenNext] = useState(true)
+  const [openNext, setOpenNext] = useState(true);
   const [isLoadingTwo, setLoadingTwo] = useState(false);
   const [isLoadingThree, setLoadingthree] = useState(false);
 
-
   const viewcartfunction = () => {
     setViewCart(true);
-  setOpenNext(true)
-
-    // getcartid();
+    setOpenNext(true);
   };
   const closeviewcartfunction = () => {
     setViewCart(false);
-  setOpenNext(true)
-  setLoadingthree(false)
-
-
+    setOpenNext(true);
+    setLoadingthree(false);
   };
-const nxt=()=>{
-  setOpenNext(false)
-}
-const cartback=()=>{
-  setOpenNext(true)
-}
+  const nxt = () => {
+    setOpenNext(false);
+  };
+  const cartback = () => {
+    setOpenNext(true);
+  };
   const [getcartlist, setGetcartlist] = useState([]);
-  // const[cartData,setCartData]=useState([])
 
   const getcartid = async () => {
     try {
-      // setLoadingTwo(true)
-
-      // console.log(e)
       const getting = await axios.get(
         `${config.api}/user/getcart_list/${localStorage.getItem(
           "loginperson_user"
@@ -165,53 +141,10 @@ const cartback=()=>{
       setLoadingTwo(false);
 
       setGetcartlist(getting.data[0].result);
-      console.log(getting.data[0].result);
 
       let collections = getting.data[0].result;
 
       updateDicinc(collections);
-      // setDecinc([1])
-      // getcartlist.map((a,index)=>{
-      // setDecinc(decinc(index).push(1))
-      // })
-
-      // console.log(decinc)
-
-      //       let qty = []
-      //       dishData.map(get=>{
-
-      //     return   qty.push(get.quantity)
-
-      //     })
-      //      console.log(qty)
-      // let totalqty = []
-      // for(let i=0; i<qty.length; i++){
-      //   for(let j=1; j<qty[i]; j++){
-      //     totalqty.push(j)
-      //   }
-      // }
-      // console.log(getting.data[2])
-      // console.log(getting.data[2].dish_id)
-      // fun();
-      //  await axios.get(`${config.api}/admin/view_dishes/${getcartlist.dish_id}`);
-      //  const fun= getcartlist.map(async(get,index) => await axios.get(`${config.api}/admin/view_dishes/${get.dish_id}`));
-
-      //   getcartlist.map(async(get,index) => {
-
-      // try {
-      //   const fun=await axios.get(`${config.api}/admin/view_dishes/${get.dish_id}`)
-      //   console.log(fun.data)
-      //   setCartData(cartData.push(fun.data))
-
-      //   console.log(cartData)
-
-      // } catch (error) {
-      //   alert(error)
-      // }}
-      //  )
-
-      // {dish_id:e});
-      // openview()
     } catch (error) {
       alert("error rrr");
     }
@@ -219,23 +152,8 @@ const cartback=()=>{
 
   const [decinc, setDecinc] = useState([]);
   const [totalAmount, setTotalAmount] = useState([]);
-  // const[initialAmount,setInitialAmount]=useState
-  // totalAmount.reduce((pre, cur) => pre+cur)
-  // const [displayTotal,setDisplayTotal]=useState("")
-
-  // const redFunc=()=>{
-  //   if(getcartlist!==0){
-  // setDisplayTotal(
-  //   totalAmount.reduce((pre,cru)=>pre + cru))
-  //   }
-
-  // }
 
   let updateDicinc = (arr) => {
-    console.log(arr);
-
-    // setDecinc([0])
-    // setTotalAmount([0])
     let newArr = [...decinc];
     let amtArr = [...totalAmount];
 
@@ -251,27 +169,9 @@ const cartback=()=>{
 
     setDecinc(newArr);
     setTotalAmount(amtArr);
-    // reduceFunction()
-
-    // console.log("check1")
-
-    // redFunc()
-    // console.log("check2")
   };
 
   const dec = (index, price) => {
-    // console.log(index)
-    // if(setDecinc[index]===undefined){
-    //   setDecinc[index]=1
-    // }
-
-    // setDecinc(...decinc,decinc[index]-1)
-
-    // let decdish = storeLoginby.cart_list.map(cart => {
-    //   return cart === e
-    // })
-    // console.log(price);
-
     let newArr = [...decinc];
     let amtArr = [...totalAmount];
 
@@ -284,11 +184,8 @@ const cartback=()=>{
 
     amtArr[index] = price * newArr[index];
     setTotalAmount(amtArr);
-
-    // console.log(amtArr);
   };
   const inc = (quantity, index, price) => {
-    // setDecinc(decinc+1)
     let newArr = [...decinc];
     let amtArr = [...totalAmount];
 
@@ -301,10 +198,7 @@ const cartback=()=>{
 
     amtArr[index] = price * newArr[index];
     setTotalAmount(amtArr);
-    // console.log(amtArr);
   };
-
-  // console.log(decinc)
 
   const removecart = async (e, index) => {
     try {
@@ -314,8 +208,6 @@ const cartback=()=>{
       deleteAmount.splice(index, 1);
       setTotalAmount(deleteAmount);
 
-      // setLoading(true);
-
       const putting = await axios.put(
         `${config.api}/user/removefromtocart/${localStorage.getItem(
           "loginperson_user"
@@ -323,42 +215,28 @@ const cartback=()=>{
         { dish_id: e }
       );
       getLoginBy();
-      // fetchData()
       fetchDataNoloading();
-      // setTotalAmount([])
       getcartid();
-      // setLoadingTwo(false)
-
-      // setLoading(false);
     } catch (error) {}
   };
 
-  const deletecart = async()=>{
+  const deletecart = async () => {
     try {
       const deleting = await axios.delete(
-        `${config.api}/user/delete_cart/${localStorage.getItem("loginperson_user")}`);
-        if(deleting.data.message==="cart deleted successfully"){
-      getLoginBy();
-      getcartid();
-
-        }
-
-    } catch (error) {
-      
-    }
-  }
+        `${config.api}/user/delete_cart/${localStorage.getItem(
+          "loginperson_user"
+        )}`
+      );
+      if (deleting.data.message === "cart deleted successfully") {
+        getLoginBy();
+        getcartid();
+      }
+    } catch (error) {}
+  };
 
   const buyfunction = async () => {
-    // console.log(decinc)
-    // console.log(totalAmount)
-    // decinc.map((count,index)=>{
-    //   return {
-    //     qty1:count
-    //   }
-    // })
-    // console.log(getcartlist[1].quantity)
     try {
-      setLoadingthree(true)
+      setLoadingthree(true);
       const date = new Date();
 
       const currentDay =
@@ -368,7 +246,6 @@ const cartback=()=>{
 
       const values = {
         date: `${currentDay}`,
-        // date: "27.1.2023",
         time: `${currentTime}`,
         user_id: `${storeLoginby._id}`,
         user_name: `${storeLoginby.name}`,
@@ -389,31 +266,15 @@ const cartback=()=>{
         total_amount: `Rs. ${totalAmount.reduce((pre, cur) => pre + cur, 0)}`,
       };
 
-      // const qty_value={
-      //   ordered_dishes: getcartlist.map((list,index) =>{
-
-      //     if(list.quantity !==0 ){
-      //       return({
-      //         dish_id:list._id,
-
-      //         qty:decinc[index],
-      //       }
-      //       )
-      //     }
-
-      //   }),
-      // }
-
-      // console.log(qty_value)
       const server = await axios.post(`${config.api}/user/create_token`, {
         ...values,
       });
 
-      if(server.data.message==="order placed successfully"){
-        deletecart()
-        
-        closeviewcartfunction()
-      fetchDataNoloading();
+      if (server.data.message === "order placed successfully") {
+        deletecart();
+
+        closeviewcartfunction();
+        fetchDataNoloading();
 
         toast.success(`Token:${server.data.token},Order placed`, {
           position: "bottom-right",
@@ -424,61 +285,43 @@ const cartback=()=>{
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
       }
     } catch (error) {
       alert("error_token");
     }
   };
 
-  // const[cartData,setCartData]=useState([])
-  // const fun =getcartlist.map(async(get,index) => {
+  const [orderView, setOrderView] = useState(false);
 
-  //   try {
+  const openorder = () => {
+    setOrderView(true);
+    getorder();
+  };
+  const closeorderfunction = () => {
+    setOrderView(false);
+  };
+  const [saveOrder, setSaveOrder] = useState([]);
+  const [isLoadingFour, setLoadingFour] = useState(false);
 
-  //     const getting = await axios.get(`${config.api}/admin/view_dishes/${get.dish_id}`);
-  //     console.log(getting)
-  //     setCartData(getting.data)
-  // console.log(cartData)
+  const getorder = async () => {
+    try {
+      setLoadingFour(true);
+      const server = await axios.get(
+        `${config.api}/user/view_order/${localStorage.getItem(
+          "loginperson_user"
+        )}`
+      );
+      setSaveOrder(server.data);
+      setLoadingFour(false);
+    } catch (error) {}
+  };
 
-  //   } catch (error) {
-  //     alert("error ");
-  //   }
-  // })
-const [orderView,setOrderView]=useState(false)
-
-const openorder=()=>{
-setOrderView(true)
-getorder()
-}
-const closeorderfunction=()=>{
-  setOrderView(false)
-
-}
-const[saveOrder,setSaveOrder]=useState([])
-const[isLoadingFour,setLoadingFour]=useState(false)
-
-const getorder =async()=>{
-  try {
-    setLoadingFour(true)
-    const server = await axios.get(`${config.api}/user/view_order/${localStorage.getItem(
-      "loginperson_user"
-    )}`);
-    // console.log(server)
-setSaveOrder(server.data)
-    setLoadingFour(false)
-    
-  } catch (error) {
-    
-  }
-}
-
-const[buttonSpinner,setButtonSpinner]=useState()
+  const [buttonSpinner, setButtonSpinner] = useState();
 
   return (
     <>
       <div className="_bg">
-        {/* <div className='user_home'> */}
         <div className="user_nav_bar">
           <div className="company_name">
             <span>ON!</span> {""}
@@ -486,8 +329,12 @@ const[buttonSpinner,setButtonSpinner]=useState()
           </div>
           <div className="others">
             <ul>
-              <li>Home</li>
-              <li>Search</li>
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#search">Search</a>
+              </li>
               <li onClick={openorder}>Order</li>
 
               <li onClick={removeLocalstorgae}>Logout</li>
@@ -501,12 +348,9 @@ const[buttonSpinner,setButtonSpinner]=useState()
               <span>{storeLoginby.name}</span>
             </div>
           </div>
-          {/* </div> */}
         </div>
-        {/* <h3 className="head">User - Dashboard</h3> */}
 
-        <div className="banner_contents">
-          {/* <div className="sliding_content"> */}
+        <div id="home" className="banner_contents">
           <Swiper
             className="sliding_content"
             modules={[Navigation, Pagination, Autoplay]}
@@ -515,33 +359,19 @@ const[buttonSpinner,setButtonSpinner]=useState()
             autoplay={{ delay: 3000 }}
             pagination={{ clickable: true }}
           >
-            <SwiperSlide>
-              <img
-                className="slide_img"
-                src="https://images.pexels.com/photos/3616956/pexels-photo-3616956.jpeg?auto=compress&cs=tinysrgb&w=600"
-              />
+            <SwiperSlide id="search">
+              <img className="slide_img" src={b1} />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                className="slide_img"
-                src="https://images.pexels.com/photos/12261064/pexels-photo-12261064.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              />
+              <img className="slide_img" src={b2} />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                className="slide_img"
-                src="https://images.pexels.com/photos/5718025/pexels-photo-5718025.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              />
+              <img className="slide_img" src={b4} />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                className="slide_img"
-                src="https://images.pexels.com/photos/13743442/pexels-photo-13743442.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              />
+              <img className="slide_img" src={b3} />
             </SwiperSlide>
           </Swiper>
-
-          {/* </div> */}
         </div>
 
         <div className="search_content">
@@ -573,9 +403,6 @@ const[buttonSpinner,setButtonSpinner]=useState()
               <>
                 <div className="foods_containers">
                   {dishData.map((get, index) => {
-                    //         if(get.status==="available"){
-                    // setStatus(true)
-                    //         }
                     return (
                       <>
                         <div
@@ -583,10 +410,6 @@ const[buttonSpinner,setButtonSpinner]=useState()
                             get.quantity === 0 ? "food_box_black" : "food_box"
                           }
                         >
-                          {/* {get.quantity===0?<div className='food_box_black'>
-Not-available
-</div>:null} */}
-
                           <div className="food_box_left">
                             <img src={get.url} />
                           </div>
@@ -638,14 +461,9 @@ Not-available
                                 </button>
                               ) : (
                                 <>
-                                  {/* {console.log(storeLoginby.cart_list)} */}
-
-                                  {
-                                  // get._id !== undefined &&
-                                  storeLoginby.cart_list !== undefined ? (
+                                  {storeLoginby.cart_list !== undefined ? (
                                     <>
                                       {storeLoginby.cart_list.some((e) => {
-                                        // console.log(e===get._id)
                                         return e === get._id;
                                       }) ? (
                                         <button className="addtocart_added">
@@ -654,9 +472,13 @@ Not-available
                                       ) : (
                                         <button
                                           className="addtocart"
-                                          onClick={() => {addtocart(get._id);setButtonSpinner(get._id)}}
+                                          onClick={() => {
+                                            addtocart(get._id);
+                                            setButtonSpinner(get._id);
+                                          }}
                                         >
-                                          {buttonloading && get._id===buttonSpinner ? (
+                                          {buttonloading &&
+                                          get._id === buttonSpinner ? (
                                             <>
                                               <div class="blocks ">
                                                 <div class="block orange forbtnspinner"></div>
@@ -671,21 +493,25 @@ Not-available
                                     </>
                                   ) : (
                                     <button
-                                    className="addtocart"
-                                    onClick={() => {addtocart(get._id);setButtonSpinner(get._id)}}
-                                  >
-                                    {buttonloading && get._id===buttonSpinner  ? (
-                                      <>
-                                        <div class="blocks ">
-                                          <div class="block orange forbtnspinner"></div>
-                                          <div class="block blue forbtnspinner"></div>
-                                        </div>
-                                      </>
-                                    ) : (
-                                      " Add to Cart"
-                                    )}
-                                  </button>
-                                  // ""
+                                      className="addtocart"
+                                      onClick={() => {
+                                        addtocart(get._id);
+                                        setButtonSpinner(get._id);
+                                      }}
+                                    >
+                                      {buttonloading &&
+                                      get._id === buttonSpinner ? (
+                                        <>
+                                          <div class="blocks ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+                                        </>
+                                      ) : (
+                                        " Add to Cart"
+                                      )}
+                                    </button>
+                                    // ""
                                   )}
                                 </>
                               )}
@@ -699,6 +525,10 @@ Not-available
               </>
             )}
           </div>
+        </div>
+        <div className="footer">
+          <h6>Powered-by</h6>
+          <h6>ON! kitchen</h6>
         </div>
       </div>
 
@@ -719,265 +549,285 @@ Not-available
                     </div>
                   </>
                 ) : (
-               <>
-               {openNext?(<>
-                <>
-                    {/* {removeloading?(<>
-                <div className='whitebg'>
-                <div class="blocks blockstwo">
-                    <div class="block orange"></div>
-                    <div class="block blue"></div>
-                  </div>
-                </div>
-                </>):""} */}
-                    {getcartlist.length === 0 ? <h3 >empty</h3> : ""}
-
-                    {getcartlist.map((get, index) => (
+                  <>
+                    {openNext ? (
                       <>
-                        {/* {updateVal(index)} */}
+                        <>
+                          {getcartlist.length === 0 ? <h3>empty</h3> : ""}
 
-                        {/* {setDecinc(decinc.push(3))} */}
-                        {/* {setDecinc(decinc[index]=1)} */}
-
-                        <table className="cart_table" key={index}>
-                          <tr className={get.quantity === 0 ? "tr_black" : ""}>
-                            <th>{index + 1}</th>
-                            <td>
-                              <img className="cart_img" src={get.url} />
-                            </td>
-                            <td>{get.dish_name}</td>
-                            {get.quantity === 0 ? (
-                              <td className="cart_notavi">Not-available</td>
-                            ) : (
-                              <>
-                                <td className="cart_notavi">
+                          {getcartlist.map((get, index) => (
+                            <>
+                              <table className="cart_table" key={index}>
+                                <tr
+                                  className={
+                                    get.quantity === 0 ? "tr_black" : ""
+                                  }
+                                >
+                                  <th>{index + 1}</th>
                                   <td>
-                                    <div className="cart_inc_dec">
-                                      <h2 onClick={() => dec(index, get.price)}>
-                                        -
-                                      </h2>
-                                      <div className="display_inc_dec">
-                                        {decinc[index]}
-                                      </div>
-                                      <h2
-                                        onClick={() =>
-                                          inc(get.quantity, index, get.price)
-                                        }
-                                      >
-                                        +
-                                      </h2>
-                                    </div>
+                                    <img className="cart_img" src={get.url} />
                                   </td>
-                                  <td className="cart_price">
-                                    <h5>
-                                      Rs.
-                                      {/* {console.log(get.price * decinc[index])} */}
-                                      {get.price * decinc[index]}
-                                      {/* {totalAmount[index]} */}
-                                    </h5>{" "}
+                                  <td>{get.dish_name}</td>
+                                  {get.quantity === 0 ? (
+                                    <td className="cart_notavi">
+                                      Not-available
+                                    </td>
+                                  ) : (
+                                    <>
+                                      <td className="cart_notavi">
+                                        <td>
+                                          <div className="cart_inc_dec">
+                                            <h2
+                                              onClick={() =>
+                                                dec(index, get.price)
+                                              }
+                                            >
+                                              -
+                                            </h2>
+                                            <div className="display_inc_dec">
+                                              {decinc[index]}
+                                            </div>
+                                            <h2
+                                              onClick={() =>
+                                                inc(
+                                                  get.quantity,
+                                                  index,
+                                                  get.price
+                                                )
+                                              }
+                                            >
+                                              +
+                                            </h2>
+                                          </div>
+                                        </td>
+                                        <td className="cart_price">
+                                          <h5>
+                                            Rs.
+                                            {get.price * decinc[index]}
+                                          </h5>{" "}
+                                        </td>
+                                      </td>
+                                    </>
+                                  )}
+                                  <td>
+                                    <MdRemoveCircle
+                                      onClick={() => removecart(get._id, index)}
+                                      className="cart_icon"
+                                    />
                                   </td>
-                                </td>
-                              </>
-                            )}
-                            <td>
-                              <MdRemoveCircle
-                                onClick={() => removecart(get._id, index)}
-                                className="cart_icon"
-                              />
-                            </td>
-                          </tr>
-                        </table>
+                                </tr>
+                              </table>
+                            </>
+                          ))}
+                        </>
                       </>
-                    ))}
+                    ) : (
+                      <>
+                        {isLoadingThree ? (
+                          <>
+                            <div class="blocks blockstwo">
+                              <div class="block orange"></div>
+                              <div class="block blue"></div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="payment_div">
+                              <div className="pay_list">
+                                <h4>Select your payment method</h4>
+
+                                <div onClick={buyfunction}>
+                                  {" "}
+                                  <img src={netpay} />
+                                  Net Banking
+                                </div>
+                                <div onClick={buyfunction}>
+                                  {" "}
+                                  <img src={upipay} /> UPI
+                                </div>
+                                <div onClick={buyfunction}>
+                                  {" "}
+                                  <img src={cardpay} /> Credit/Debit card
+                                </div>
+                                <button onClick={cartback}>Back</button>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    )}
                   </>
-               </>):(<>
-{isLoadingThree?(<>
-
-  
-                    <div class="blocks blockstwo">
-                      <div class="block orange"></div>
-                      <div class="block blue"></div>
-                    </div>
-                  
-</>):(<>
-  <div className="payment_div">
-  <div className="pay_list">
-  <h4>Select your payment method</h4>
-
-<div onClick={buyfunction}> <img src={netpay}/>Net Banking</div>
-<div  onClick={buyfunction}>  <img src={upipay}/> UPI</div>
-<div  onClick={buyfunction}>  <img src={cardpay}/> Credit/Debit card</div>
-<button onClick={cartback}>Back</button>
-
-
-  </div>
-  </div> 
-</>)}       
-         </>)}
-               </>
                 )}
               </div>
-              {getcartlist.length === 0 ? "" : 
-<>
-             {openNext?<>
-              <div className="cart_bottom">
-                <button onClick={() => nxt()}>Buy</button>
-                <div className="total_price">
-                  <div className="total_price_display">
-                    {getcartlist.length === 0
-                      ? ""
-                      : totalAmount.reduce((pre, cur) => pre + cur, 0)}
-                    {/* {displayTotal} */}
-                    {/* {totalAmount} */}
-                  </div>
-                  : Total{" "}
-                </div>
-              </div>
-             </>:""}
-             </>}
+              {getcartlist.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  {openNext ? (
+                    <>
+                      <div className="cart_bottom">
+                        <button onClick={() => nxt()}>Buy</button>
+                        <div className="total_price">
+                          <div className="total_price_display">
+                            {getcartlist.length === 0
+                              ? ""
+                              : totalAmount.reduce((pre, cur) => pre + cur, 0)}
+                          </div>
+                          : Total{" "}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </>
+              )}
             </div>
           </div>
         </>
       ) : null}
 
-
-
-{orderView?(<>
-  <div className="view_bg zindex yellowlow">
+      {orderView ? (
+        <>
+          <div className="view_bg zindex yellowlow">
             <div onClick={closeorderfunction} className="view_bg_two">
               {" "}
             </div>
             <div className="cart_box primary">
               <h4>Your Order</h4>
               <div className="inside_cart_box fororder">
-<button onClick={getorder} className="refresh_btn"> 
-<IoMdRefreshCircle  className="refresh_btn_icon" />
-
-
-Refresh</button>
-{isLoadingFour? <>
+                <button onClick={getorder} className="refresh_btn">
+                  <IoMdRefreshCircle className="refresh_btn_icon" />
+                  Refresh
+                </button>
+                {isLoadingFour ? (
+                  <>
                     <div class="blocks blockstwo">
                       <div class="block orange"></div>
                       <div class="block blue"></div>
                     </div>
-                  </>:<>
-                 {saveOrder.slice().reverse().map((get,index)=>(
-<>
-{get.order_status!=="delivered"?
-<div className="order_box">
-                    <div className="order_box_top">
-                      <div className="order_box_top_one">
-<h2>{get.token}</h2>
-{get.order_status==="droped"? <h3>...waiting ⏳</h3>:"" }
-{get.order_status==="picked"? <h3>...preparing 🔥</h3>:"" }
+                  </>
+                ) : (
+                  <>
+                    {saveOrder
+                      .slice()
+                      .reverse()
+                      .map((get, index) => (
+                        <>
+                          {get.order_status !== "delivered" ? (
+                            <div className="order_box">
+                              <div className="order_box_top">
+                                <div className="order_box_top_one">
+                                  <h2>{get.token}</h2>
+                                  {get.order_status === "droped" ? (
+                                    <h3>...waiting ⏳</h3>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {get.order_status === "picked" ? (
+                                    <h3>...preparing 🔥</h3>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                                <div className="order_box_top_two">
+                                  <h6>Date: {get.date} </h6>
+                                  <h6>Time: {get.time}</h6>
 
+                                  <h6>Amount paid: {get.total_amount}</h6>
+                                </div>
+                              </div>
+                              <div className="order_box_bottom">
+                                {get.ordered_dishes.map((get, index) => (
+                                  <>
+                                    <div className="inside_order_box_bottom">
+                                      <p>{index + 1}</p>
+                                      <p>{get.dish_name}</p>
+                                      <p>price: {get.dish_price}</p>
+                                      <p>quantity: {get.qty}</p>
+                                      <p>total: {get.price_X_qty}</p>
+                                    </div>
+                                  </>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </>
+                      ))}
+                    <hr></hr>
+                    <h4>Order history</h4>
+                    {saveOrder
+                      .slice()
+                      .reverse()
+                      .map((get, index) => (
+                        <>
+                          {get.order_status == "delivered" ? (
+                            <div className="order_box_black">
+                              <div className="order_box_top">
+                                <div className="order_box_top_one">
+                                  <h2>{get.token}</h2>
+                                  {get.order_status === "droped" ? (
+                                    <h3>...waiting ⏳</h3>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {get.order_status === "picked" ? (
+                                    <h3>...preparing 🔥</h3>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {get.order_status === "delivered" ? (
+                                    <h3>...delivered ✔</h3>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                                <div className="order_box_top_two">
+                                  <h6>Date: {get.date} </h6>
+                                  <h6>Time: {get.time}</h6>
 
+                                  <h6>Amount paid: {get.total_amount}</h6>
+                                </div>
+                              </div>
+                              <div className="order_box_bottom">
+                                {get.ordered_dishes.map((get, index) => (
+                                  <>
+                                    <div className="inside_order_box_bottom">
+                                      <p>{index + 1}</p>
+                                      <p>{get.dish_name}</p>
+                                      <p>price: {get.dish_price}</p>
+                                      <p>quantity: {get.qty}</p>
+                                      <p>total: {get.price_X_qty}</p>
+                                    </div>
+                                  </>
+                                ))}
+                              </div>
+                            </div>
+                          ) : null}
+                        </>
+                      ))}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
 
-                      </div>
-                      <div className="order_box_top_two">
-                      
-<h6>Date: {get.date} </h6>
-<h6>Time: {get.time}</h6>
-
-                       
-<h6>Amount paid: {get.total_amount}</h6>
-
-                        </div>
-                    </div>
-                    <div className="order_box_bottom">
-{get.ordered_dishes.map((get,index)=>(
-  <>
-  <div className="inside_order_box_bottom">
-    <p>{index+1}</p>
-    <p>{get.dish_name}</p>
-    <p>price: {get.dish_price}</p>
-    <p>quantity: {get.qty}</p>
-    <p>total: {get.price_X_qty}</p>
-
-
-
-  </div>
-  </>
-))}
-                    </div>
-                  </div>
-:null}
-
-
-</>
-))}
-<hr></hr>
-<h4>Order history</h4>
-{saveOrder.slice().reverse().map((get,index)=>(
-<>
-{get.order_status=="delivered"?
-<div className="order_box_black">
-                    <div className="order_box_top">
-                      <div className="order_box_top_one">
-<h2>{get.token}</h2>
-{get.order_status==="droped"? <h3>...waiting ⏳</h3>:"" }
-{get.order_status==="picked"? <h3>...preparing 🔥</h3>:"" }
-{get.order_status==="delivered"? <h3>...delivered ✔</h3>:"" }
-
-
-
-
-                      </div>
-                      <div className="order_box_top_two">
-                      
-<h6>Date: {get.date} </h6>
-<h6>Time: {get.time}</h6>
-
-                       
-<h6>Amount paid: {get.total_amount}</h6>
-
-                        </div>
-                    </div>
-                    <div className="order_box_bottom">
-{get.ordered_dishes.map((get,index)=>(
-  <>
-  <div className="inside_order_box_bottom">
-    <p>{index+1}</p>
-    <p>{get.dish_name}</p>
-    <p>price: {get.dish_price}</p>
-    <p>quantity: {get.qty}</p>
-    <p>total: {get.price_X_qty}</p>
-
-
-
-  </div>
-  </>
-))}
-                    </div>
-                  </div>
-:null}
-
-
-</>
-))}
-                  </>}
-
-                </div>
-                </div>
-                </div>
-
-</>):""}
-
-
-
-<ToastContainer
-position="bottom-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
-
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

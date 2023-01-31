@@ -2,8 +2,6 @@ import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Welcome from './Welcome';
-// import './Design.css'
-// import './Admin components/constantcolors.css'
 import Login from './verification/Login';
 import Adminregister from './verification/Adminregister';
 import Userregister from './verification/Userregister';
@@ -14,7 +12,7 @@ import Add_dishes from './Admin components/Add_dishes';
 import Edit_dishes from './Admin components/Edit_dishes';
 import User from './User components/User';
 import Orderhistory from './Admin components/Orderhistory';
-// import './Modals/Allmodal'
+
 
 function App() {
   return (

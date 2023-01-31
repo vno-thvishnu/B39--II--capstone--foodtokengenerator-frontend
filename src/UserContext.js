@@ -1,36 +1,40 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState } from "react";
 
+export const UserContext = createContext();
 
-export const  UserContext = createContext();
+export const UserProvider = ({ children }) => {
+  const [failModal, setFailModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
 
-export const UserProvider =({children})=>{
+  const [loginsuccessModal, setLoginsuccessModal] = useState(false);
+  const [loginsuccessRouter, setLoginsuccessRouter] = useState(false);
 
-    const [failModal,setFailModal]=useState(false);
-    const [successModal,setSuccessModal]=useState(false);
+  const [alertmodal, setAlertmodal] = useState(false);
 
-    const [loginsuccessModal,setLoginsuccessModal]=useState(false);
-    const [loginsuccessRouter,setLoginsuccessRouter]=useState(false);
+  const [displaymsg, setDisplaymsg] = useState([]);
 
-    const [alertmodal,setAlertmodal]=useState(false)
-    // const [postagain,setPostagain]=useState("")
+  const [loginBy, setLoginBy] = useState([]);
 
-
-
-    const [displaymsg,setDisplaymsg]=useState([]);
-
-    const [loginBy,setLoginBy]=useState([])
-
-    return(
-        <UserContext.Provider value={{failModal,setFailModal,
-            successModal,setSuccessModal,
-        displaymsg,setDisplaymsg,
-        loginsuccessModal,setLoginsuccessModal,
-        loginsuccessRouter,setLoginsuccessRouter,
-        alertmodal,setAlertmodal,
-        // postagain,setPostagain
-        loginBy,setLoginBy
-        }}>
-            {children}
-        </UserContext.Provider>
-    )
-}
+  return (
+    <UserContext.Provider
+      value={{
+        failModal,
+        setFailModal,
+        successModal,
+        setSuccessModal,
+        displaymsg,
+        setDisplaymsg,
+        loginsuccessModal,
+        setLoginsuccessModal,
+        loginsuccessRouter,
+        setLoginsuccessRouter,
+        alertmodal,
+        setAlertmodal,
+        loginBy,
+        setLoginBy,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};

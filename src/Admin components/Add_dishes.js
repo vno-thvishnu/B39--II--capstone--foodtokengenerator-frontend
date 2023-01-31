@@ -2,16 +2,14 @@ import { useFormik } from "formik";
 import React from "react";
 import axios from "axios";
 import { config } from "../config";
-// import {food_banner} from "..vectors/food_banner.png"
 import "./Add_dishes.css";
 import { Link, useNavigate } from "react-router-dom";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Add_dishes() {
- 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +21,7 @@ function Add_dishes() {
       quantity: "",
       status: "",
       country: "",
-      description:"",
+      description: "",
     },
     validate: (values) => {
       let error = {};
@@ -31,7 +29,10 @@ function Add_dishes() {
       if (values.dish_name === "") {
         error.dish_name = "please enter Name";
       }
-      if (values.dish_name && (values.dish_name.length <= 2 || values.dish_name.length > 25)) {
+      if (
+        values.dish_name &&
+        (values.dish_name.length <= 2 || values.dish_name.length > 25)
+      ) {
         error.dish_name = "Name must be between 3 to 25 characters";
       }
       if (values.veg_or_nonveg === "") {
@@ -40,86 +41,45 @@ function Add_dishes() {
       if (values.url === "") {
         error.url = "please enter Url";
       }
-// if(values.url && 
-  // /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm
-  // /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/ 
-// ){
-//   error.url="please enter valid Url"
-// }
-if (values.dish_type === "") {
-  error.dish_type = "please choose one";
-}
-if (values.price === "" && values.quantity) {
-  error.price = "please enter price";
-}
-if (values.quantity === "" && values.price) {
-  error.quantity = "please enter quantity";
-}
-if (values.quantity === "" && values.price==="") {
-  error.price=" "
-  error.quantity = "please enter price and quantity";
-}
-if (values.status === "") {
-  error.status = "please select one";
-}
-if (values.country === "") {
-  error.country = "please choose one";
-}
-if (values.description === "") {
-  error.description = "please enter description";
-}
-if (values.description && (values.description.length <= 20 || values.description.length > 100)) {
-  error.description = "Description must be between 20 to 100 characters";
-}
+
+      if (values.dish_type === "") {
+        error.dish_type = "please choose one";
+      }
+      if (values.price === "" && values.quantity) {
+        error.price = "please enter price";
+      }
+      if (values.quantity === "" && values.price) {
+        error.quantity = "please enter quantity";
+      }
+      if (values.quantity === "" && values.price === "") {
+        error.price = " ";
+        error.quantity = "please enter price and quantity";
+      }
+      if (values.status === "") {
+        error.status = "please select one";
+      }
+      if (values.country === "") {
+        error.country = "please choose one";
+      }
+      if (values.description === "") {
+        error.description = "please enter description";
+      }
+      if (
+        values.description &&
+        (values.description.length <= 20 || values.description.length > 100)
+      ) {
+        error.description = "Description must be between 20 to 100 characters";
+      }
       return error;
     },
     onSubmit: async (values) => {
-        
-          
       try {
-        // toastId.current = toast.loading('wait a second', {
-        //     position: "bottom-right",
-        //     autoClose: true,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "colored",
-        //     });
-        // const id=toast.loading('wait a second', {
-        //   position: "bottom-right",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "colored",
-        //   });
-        // toast("Default Notification !");
-        // toast("Default Notification !");
+        const server = await axios.post(
+          `${config.api}/admin/add_dishes`,
+          values
+        );
 
-        const server = await axios.post(`${config.api}/admin/add_dishes`, values);
-
-        // toast.update(toastId.current, {
-        //   type: toast.TYPE.SUCCESS,
-        //   autoClose: 50000,
-        //   closeButton: null 
-        // });
-       // toast.update(toastId.current,{
-        //   position: "bottom-right",
-        //   autoClose: 5000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "colored",
-        //   });
-        if (
-          server.data.message ==="Dish name already there, use another"
-        ) {
+        if (server.data.message === "Dish name already there, use another") {
           toast.warn(`${server.data.message}`, {
             position: "bottom-right",
             autoClose: 4000,
@@ -129,7 +89,7 @@ if (values.description && (values.description.length <= 20 || values.description
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+          });
         }
         if (server.data.message === "Dish added successfully") {
           toast.success(`${server.data.message}`, {
@@ -141,14 +101,10 @@ if (values.description && (values.description.length <= 20 || values.description
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
-// navigate("/admin_dashboard")
-setTimeout(()=> navigate("/admin_dashboard"), 3500)
-setTimeout(()=> formik.resetForm(), 3000)
-
-
+          });
+          setTimeout(() => navigate("/admin_dashboard"), 3500);
+          setTimeout(() => formik.resetForm(), 3000);
         }
-       
       } catch (error) {
         alert("error");
       }
@@ -158,8 +114,6 @@ setTimeout(()=> formik.resetForm(), 3000)
     <>
       <div className="add_dishes_bg">
         <form className="add_box">
-          {/* < className="add_groups"> */}
-
           <h2>Add Dishes</h2>
           <input
             type="text"
@@ -188,19 +142,15 @@ setTimeout(()=> formik.resetForm(), 3000)
             <span className="add_err">{formik.errors.dish_name} </span>
           ) : null}
 
-          <div id="add_div_row"
-       
-          >
+          <div id="add_div_row">
             <div id="add_div_row_inside">
               <input
                 type="radio"
                 name="veg_or_nonveg"
-                // value={formik.values.vegetarian}
                 value="vegetarian"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 required
-                
               />
               <label className="add_label_main">Vegetarian</label>
             </div>
@@ -209,7 +159,6 @@ setTimeout(()=> formik.resetForm(), 3000)
               <input
                 type="radio"
                 name="veg_or_nonveg"
-                // value={formik.values.vegetarian}
                 value="non-vegetarian"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -244,10 +193,8 @@ setTimeout(()=> formik.resetForm(), 3000)
               <span className="login_err">{formik.errors.url} </span>
             ) : null}
           </div>
-          
 
           <select
-            // placeholder=" Name"
             name="dish_type"
             value={formik.values.dish_type}
             onChange={formik.handleChange}
@@ -269,8 +216,9 @@ setTimeout(()=> formik.resetForm(), 3000)
                 `}
           >
             <option value="">select type</option>
-            <option value="berger">burger</option>
+            <option value="burger">burger</option>
             <option value="bbq">bbq</option>
+            <option value="fried">fried</option>
             <option value="cakes">cakes</option>
             <option value="desserts">desserts</option>
             <option value="fries">fries</option>
@@ -289,7 +237,6 @@ setTimeout(()=> formik.resetForm(), 3000)
               type="number"
               placeholder="price"
               name="price"
-              // value={"rs"}
               value={formik.values.price}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -307,7 +254,6 @@ setTimeout(()=> formik.resetForm(), 3000)
 
                 `}
             />
-           
 
             <input
               type="number"
@@ -332,21 +278,19 @@ setTimeout(()=> formik.resetForm(), 3000)
 
                 `}
             />
-          
           </div>
           {formik.touched.quantity && formik.errors.quantity ? (
-              <span className="add_err">{formik.errors.quantity} </span>
-            ) : null}
-             {formik.touched.price && formik.errors.price ? (
-              <span className="add_err">{formik.errors.price} </span>
-            ) : null}
+            <span className="add_err">{formik.errors.quantity} </span>
+          ) : null}
+          {formik.touched.price && formik.errors.price ? (
+            <span className="add_err">{formik.errors.price} </span>
+          ) : null}
 
           <div id="add_div_row">
             <div id="add_div_row_inside">
               <input
                 type="radio"
                 name="status"
-                // value={formik.values.vegetarian}
                 value="available"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -359,7 +303,6 @@ setTimeout(()=> formik.resetForm(), 3000)
               <input
                 type="radio"
                 name="status"
-                // value={formik.values.vegetarian}
                 value="non-available"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -373,7 +316,6 @@ setTimeout(()=> formik.resetForm(), 3000)
           ) : null}
 
           <select
-            // placeholder=" Name"
             name="country"
             value={formik.values.country}
             onChange={formik.handleChange}
@@ -442,20 +384,19 @@ setTimeout(()=> formik.resetForm(), 3000)
             Back
           </Link>
         </form>
-        {/* </div> */}
       </div>
       <ToastContainer
-position="bottom-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="colored"
-/>
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 }

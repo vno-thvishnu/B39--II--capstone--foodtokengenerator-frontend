@@ -15,8 +15,7 @@ setLoginsuccessModal,
 loginsuccessRouter,
 alertmodal,
 setAlertmodal,
-// setPostagain,
-// postagain
+
 } = useContext(UserContext)
  
 
@@ -38,6 +37,10 @@ const backfunctionfour=()=>{
   setCheck(false)
   navigate(openlink)
   }
+  const backfunctionfourclose=()=>{
+    setAlertmodal(false)
+    setCheck(false)
+    }
 
 const[check,setCheck]=useState(false)
 const[openlink,setOpenlink]=useState([])
@@ -139,19 +142,17 @@ const user=()=>{
        <div className="inside_popup_login_alert">
         <div className='popup_top'>
         <h4 className="h4msg">Alert!</h4>
-         <h4 className='h4close' onClick={backfunctionfour}>X</h4>
+         <h4 className='h4close' onClick={backfunctionfourclose}>X</h4>
         </div>
          <hr></hr>
 
          <div className="inside_popup_content">
            <div className="msg">
              <h6 className="h3green">
-              {/* {displaymsg} */}
               You having two role in same <br/>Email-id & Password
              </h6>
            </div>
            <hr></hr>
-  {/* <h6 className="h4msg">select your role to open dashboard</h6> */}
 
 <div className='popup_bottom_login_alert'>
 <div className='radio_alert'>
