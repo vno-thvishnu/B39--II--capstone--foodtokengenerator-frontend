@@ -217,7 +217,7 @@ function Admin() {
             <span>ON!</span> {""}
             <span>kitchen</span>
           </div>
-          <div className="others">
+          <div className="others admin_other">
             <ul>
               <li>
                 <a href="#home">Home</a>

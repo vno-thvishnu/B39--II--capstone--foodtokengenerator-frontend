@@ -129,3 +129,30 @@
     width: fit-content;
   }
 }
+@media only screen and (min-width: 300px) and (max-width: 450px) {
+  .add_dishes_bg{
+    padding: 1.5rem;
+  }
+  .add_box{
+    padding: 0.5rem;
+  }
+  .add_box>input,#add_div>input{
+    font-size: 4vw !important;
+  }
+  #add_input,select>option{
+font-size: 4vw;  }
+  label{
+    font-size: 4vw;
+  }
+  .add_err,.login_err{
+    font-size: 3vw;
+  }
+  #add_input_textarea{
+    font-size: 4vw;
+  }
+  .add_box>.login_btn{
+    font-size: 4vw;
+    padding: 2%;
+    height: fit-content;
+  }
+}

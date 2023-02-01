@@ -145,3 +145,53 @@
     font-size: 2vh;
   }
 }
+@media only screen and (min-width: 300px) and (max-width: 450px) {
+ .history_content{
+  width: 85vw;
+  padding: 0.6rem;
+ }
+  .history_btn>.refresh_btn{
+    width: fit-content;
+    padding: 0.3rem;
+    border-radius: 8px;
+    font-size: 3vw;
+    gap: 0.2rem;
+  }
+  .history_refresh{
+    font-size: 3vw !important;
+  }
+  .refresh_btn:first-child{
+    font-size: 3vw !important;
+  }
+  .inside_history_content{
+    gap: 0.5rem;
+  }
+  .history_data_box{
+    gap: 0.5rem;
+  }
+  .history_one{
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  
+  .history_d_t>h5,.history_token>h5,.history_delvry>h5{
+    font-size: 3vw;
+  }
+  .history_two{
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+  }
+  .history_two>h5{
+    font-size: 2.5vw;
+  }
+  .inside_history_three{
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+  }
+  .inside_history_three>p{
+    font-size: 3vw;
+  }
+  .inside_history_two_amount>p{
+    font-size: 3vw;
+  }
+
+}

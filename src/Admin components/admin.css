@@ -8,7 +8,7 @@
 }
 
 ._bg {
-  min-width: 100%;
+  min-width: 100vw;
   min-height: 100vh;
   background-color: var(--tertiary);
 }
@@ -333,4 +333,42 @@ a:hover {
     font-size: 2vh;
     text-align: center;
   }
+}
+@media only screen and (min-width: 300px) and (max-width: 450px) {
+  .admin_other{
+    font-size: 3.5vw !important;
+  }
+  .admin_other>ul{
+    gap: 0.5rem !important;
+  }
+  .all_contents{
+    padding: 0.4rem;
+  }
+  .table{
+    padding: 0.2rem;
+  }
+  .rbtn_admin{
+    font-size: 3vw !important;
+  }
+  .rbtn_admin>.rbtn_admin_icon{
+    font-size: 3vw;
+  }
+  .token_data>h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vw;
+  }
+  .token_data>h6{
+    font-size: 4vw;
+  }
+ .token_data_droped,.token_data_picked{
+  font-size: 4vw;
+ }
+ .more_details>h6{
+  font-size: 4vw;
+ }
+ .inside_more_details>p{
+  font-size: 3vw !important;
+ }
 }

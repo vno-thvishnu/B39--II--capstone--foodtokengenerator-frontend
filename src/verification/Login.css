@@ -203,8 +203,10 @@ h2 > b {
     margin: 0.5vh;
   }
   .back_btn {
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 2.5vw;
+    height: fit-content;
+    width: fit-content;
   }
 }
 
