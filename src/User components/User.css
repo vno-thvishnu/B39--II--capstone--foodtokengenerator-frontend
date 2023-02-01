@@ -672,6 +672,10 @@ a:hover {
     .swiper-pagination-bullet-active {
 height: 0.5vh !important;
     }
+    .inside_cart_box {
+      padding: 0.5rem;
+    }
+
 }
 
 @media only screen and (min-width: 300px) and (max-width: 450px) {
@@ -679,9 +683,12 @@ height: 0.5vh !important;
         height: 30vh;
     }
     .others{
-        font-size: 2vh;
+        font-size: 3.5vw;
         width: 100%;
-        grid-template-columns: 2fr 1fr !important;
+        grid-template-columns: 1.5fr 1fr !important;
+    }
+    .user_nav_bar > .others > ul {
+      gap: 0.5rem;
     }
     .login_person{
         gap: 0.3rem;
@@ -700,8 +707,8 @@ height: 0.5vh !important;
         width: 70%;
       }
       .search_button{
-        width: 25%;
-        font-size: 1.5vh;
+        width: 30%;
+        font-size: 3vw;
       }
       .search_button > :first-child {
         width: fit-content !important;
@@ -724,5 +731,75 @@ height: 0.5vh !important;
       .addtocart_added{
         font-size: 2vh;
       }
+.cart_table>tr>th{
+  font-size: 3vw;
+}
 
+.cart_table>tr>td{
+  font-size: 3vw;
+}
+.cart_table>tr>td>img{
+  height: 25px;
+  width: 25px;
+}
+
+.cart_notavi{
+  width: 15vw !important;
+}
+.cart_price>h5{
+  font-size: 3vw;
+}
+.cart_icon{
+  font-size: 2vh;
+}
+.pay_list>h4{
+font-size: 5vw;
+}
+.pay_list>div{
+  font-size: 4vw;
+  width: 80%;
+}
+.pay_list>button{
+  width: 20%;
+  padding: 2%;
+  font-size: 3vw;
+}
+.inside_cart_box{
+  padding: 0.3rem;
+}
+.fororder>.refresh_btn{
+  width: 25%;
+  font-size: 3vw;
+  gap: 0.2rem;
+border-radius: 8px;
+}
+.refresh_btn>.refresh_btn_icon{
+  font-size: 4vw;
+}
+.order_box_top{
+padding: 0.5rem;
+gap: 0.5rem;
+}
+.order_box_top_one>h2{
+  font-size: 5vw;
+  margin: 0;
+}
+.order_box_top_one>h3{
+  font-size: 4vw;
+  margin: 0;
+
+}
+.order_box_top_two>h6{
+  font-size: 2.5vw;
+  margin: 0;
+}
+.inside_order_box_bottom{
+  gap: 0.5rem;
+}
+.inside_order_box_bottom>p{
+  font-size: 2vw;
+}
+.inside_order_box_bottom>:nth-child(2){
+  width: 40%;
+}
 }
