@@ -543,14 +543,14 @@ ul > li {
 .cart_price > h5 {
   margin: 0;
 }
-a {
+.others>ul>li>a {
   color: var(--tertiary);
   text-decoration: none;
 }
-a:visited {
+.others>ul>li>a:visited {
   color: var(--tertiary);
 }
-a:hover {
+.others>ul>li>a:hover {
   color: var(--tertiary);
 }
 .swiper-button-prev,.swiper-button-next{
