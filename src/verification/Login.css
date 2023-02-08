@@ -1,3 +1,13 @@
+:root {
+  --primary: #4e0f6d;
+  --primarylow: rgb(78, 15, 109, 0.5);
+  --secondary: #ffc600;
+  --secondarylow: rgb(255, 198, 0, 0.5);
+
+  --tertiary: #f5f5f5;
+}
+
+
 .verification_box {
   height: 80%;
   width: 80%;
@@ -101,9 +111,15 @@ h2 > b {
   border-radius: 20px;
   background-color: #4e0f6d;
 
-  color: #ffc600;
+  color:var(--secondarylow);
   font-weight: bold;
   border: 1.5px solid #ffc600;
+}
+.login_btn:hover{
+  color: var(--secondary);
+}
+.login_btn:visited{
+  color: var(--tertiary);
 }
 .login_links {
   width: 70%;
