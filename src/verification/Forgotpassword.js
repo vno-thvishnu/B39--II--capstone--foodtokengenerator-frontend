@@ -43,10 +43,12 @@ function Forgotpassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
         const server = await axios.post(`${config.api}/forgot`, values);
 
         if (server.data.message === "user_id finded") {
           setUserPassId(server.data.email);
+          setButtonLoading(false)
 
           setEmailDiv(false);
           setUserOtpDiv(true);
@@ -54,16 +56,21 @@ function Forgotpassword() {
         }
         if (server.data.message === "admin_id finded") {
           setAdminPassId(server.data.email);
+          setButtonLoading(false)
 
           setEmailDiv(false);
           setAdminOtpDiv(true);
           setAdminPasswordDiv(false);
         }
         if (server.data.message === "Account not found in this email-Id") {
+          setButtonLoading(false)
+
           setFailModal(true);
           setDisplaymsg(server.data.message);
         }
         if (server.data.message === "Finded User & Admin Account") {
+          setButtonLoading(false)
+
           setEmailDiv(false);
           setEmailAlert(true);
           setDisplaymsg(server.data.message);
@@ -96,18 +103,24 @@ function Forgotpassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.post(
           `${config.api}/forgot/user/otp/${userPassId}`,
           values
         );
 
         if (server.data.message === "OTP correct") {
+          setButtonLoading(false)
+
           setUserOtpDiv(false);
 
           setUserPasswordDiv(true);
           UserformikOtp.resetForm();
         }
         if (server.data.message === "OTP incorrect") {
+          setButtonLoading(false)
+
           setFailModal(true);
           setDisplaymsg(server.data.message);
         }
@@ -162,12 +175,16 @@ function Forgotpassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.post(
           `${config.api}/forgot/user/otp/new_password/${userPassId}`,
           values
         );
 
         if (server.data.message === "User Password Created Successfully") {
+          setButtonLoading(false)
+
           setSuccessModal(true);
           setDisplaymsg(server.data.message);
           UserformikPassword.resetForm();
@@ -197,18 +214,24 @@ function Forgotpassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.post(
           `${config.api}/forgot/admin/otp/${adminPassId}`,
           values
         );
 
         if (server.data.message === "OTP correct") {
+          setButtonLoading(false)
+
           setAdminOtpDiv(false);
 
           setAdminPasswordDiv(true);
           AdminformikOtp.resetForm();
         }
         if (server.data.message === "OTP incorrect") {
+          setButtonLoading(false)
+
           setFailModal(true);
           setDisplaymsg(server.data.message);
         }
@@ -263,12 +286,16 @@ function Forgotpassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.post(
           `${config.api}/forgot/admin/otp/new_password/${adminPassId}`,
           values
         );
 
         if (server.data.message === "Admin Password Created Successfully") {
+          setButtonLoading(false)
+
           setSuccessModal(true);
           setDisplaymsg(server.data.message);
           UserformikPassword.resetForm();
@@ -314,9 +341,13 @@ function Forgotpassword() {
 
   const pushagain = async (e) => {
     try {
+      setButtonLoading(true)
+
       const server = await axios.get(`${sendLink}`);
 
       if (server.data.message === "user_id finded") {
+        setButtonLoading(false)
+
         setUserPassId(server.data.email);
         setEmailAlert(false);
 
@@ -325,6 +356,8 @@ function Forgotpassword() {
         setUserPasswordDiv(false);
       }
       if (server.data.message === "admin_id finded") {
+        setButtonLoading(false)
+
         setAdminPassId(server.data.email);
         setEmailAlert(false);
 
@@ -336,6 +369,9 @@ function Forgotpassword() {
       alert("error");
     }
   };
+
+  const[buttonloading,setButtonLoading]=useState(false)
+
 
   return (
     <>
@@ -374,7 +410,13 @@ function Forgotpassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                 {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
+                
               </button>
 
               <Link to="/" className="back_btn">
@@ -431,7 +473,12 @@ function Forgotpassword() {
                         type="button"
                         onClick={pushagain}
                       >
-                        proceed
+                          {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
                       </button>
                     ) : (
                       <div className="popup_btn_alert_low">proceed</div>
@@ -486,7 +533,12 @@ function Forgotpassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">
@@ -570,7 +622,12 @@ function Forgotpassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">
@@ -621,7 +678,12 @@ function Forgotpassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">
@@ -705,7 +767,12 @@ function Forgotpassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">

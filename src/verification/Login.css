@@ -264,3 +264,7 @@ font-size: 2vw;
     margin: 1.5vh;
   }
 }
+
+.mtzero{
+  margin: 0 !important;
+}

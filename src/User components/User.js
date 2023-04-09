@@ -319,6 +319,24 @@ function User() {
 
   const [buttonSpinner, setButtonSpinner] = useState();
 
+  const[searchText,setSearchText]=useState("")
+//   const[searchedResults,setSearchedResults]=useState(null)
+// const[searchTimeout,setSearchTimeout]=useState(null)
+//   const handleSearchChange=(e)=>{
+//     clearTimeout(searchTimeout)
+//     setSearchText(e.target.value);
+// setSearchTimeout(
+    
+//     setTimeout(()=>{
+//         const searchResults=dishData.filter((item)=>item.dish_name.toLowerCase()
+//         .includes(searchText.toLowerCase()) || item.prompt.toLowerCase().includes
+//         (searchText.toLowerCase()))
+
+//         setSearchedResults(searchResults)
+//     },500)
+// )
+// }
+
   return (
     <>
       <div className="_bg">
@@ -377,7 +395,11 @@ function User() {
         <div className="search_content">
           <div className="search_bar">
             <input
-              type="search"
+               type="text"
+               name="text"
+              //  value={searchText}
+              //  handleChange={handleSearchChange}
+              onChange={(e)=>setSearchText(e.target.value)}
               placeholder="Type dishes name"
               id="user_input"
             />
@@ -402,7 +424,7 @@ function User() {
             ) : (
               <>
                 <div className="foods_containers">
-                  {dishData.map((get, index) => {
+                  {dishData.filter((p)=>p.dish_name.includes(searchText.toLowerCase())).map((get, index) => {
                     return (
                       <>
                         <div

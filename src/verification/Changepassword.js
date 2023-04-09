@@ -40,9 +40,12 @@ function Chnagepassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
         const server = await axios.post(`${config.api}/change`, values);
 
         if (server.data.message === "user_id finded") {
+        setButtonLoading(false)
+
           setUserPassId(server.data.email);
           setEmailDiv(false);
           setUserPasswordDiv(true);
@@ -50,13 +53,19 @@ function Chnagepassword() {
         if (server.data.message === "admin_id finded") {
           setAdminPassId(server.data.email);
           setEmailDiv(false);
+        setButtonLoading(false)
+
           setAdminPasswordDiv(true);
         }
         if (server.data.message === "Account not found in this email-Id") {
           setFailModal(true);
+          setButtonLoading(false)
+
           setDisplaymsg(server.data.message);
         }
         if (server.data.message === "finded user & admin account") {
+          setButtonLoading(false)
+
           setEmailDiv(false);
           setEmailAlert(true);
           setDisplaymsg(server.data.message);
@@ -136,17 +145,23 @@ function Chnagepassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.put(
           `${config.api}/change/user/${userPassId}`,
           values
         );
         if (server.data.message === "User Password Changed Successfully") {
           setSuccessModal(true);
+        setButtonLoading(false)
+
           setDisplaymsg(server.data.message);
           userformikpassword.resetForm();
         }
         if (server.data.message === "Current Password Incorrect") {
           setFailModal(true);
+          setButtonLoading(false)
+
           setDisplaymsg(server.data.message);
         }
       } catch (error) {
@@ -210,16 +225,22 @@ function Chnagepassword() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
+
         const server = await axios.put(
           `${config.api}/change/admin/${adminPassId}`,
           values
         );
         if (server.data.message === "Admin Password Changed Successfully") {
           setSuccessModal(true);
+        setButtonLoading(false)
+
           setDisplaymsg(server.data.message);
           adminformikpassword.resetForm();
         }
         if (server.data.message === "Current Password Incorrect") {
+        setButtonLoading(false)
+
           setFailModal(true);
           setDisplaymsg(server.data.message);
         }
@@ -256,6 +277,7 @@ function Chnagepassword() {
     setAdminPasswordDiv(openAdmin);
     setUserPasswordDiv(openUser);
   };
+  const[buttonloading,setButtonLoading]=useState(false)
 
   return (
     <>
@@ -294,7 +316,12 @@ function Chnagepassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                 {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link to="/" className="back_btn">
@@ -351,7 +378,12 @@ function Chnagepassword() {
                         type="button"
                         onClick={forOpen}
                       >
-                        proceed
+                         {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
                       </button>
                     ) : (
                       <div className="popup_btn_alert_low">proceed</div>
@@ -473,7 +505,12 @@ function Chnagepassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">
@@ -591,7 +628,12 @@ function Chnagepassword() {
                 type="submit"
                 className="login_btn"
               >
-                proceed
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"proceed"}
               </button>
 
               <Link onClick={back} className="back_btn">

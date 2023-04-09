@@ -295,7 +295,7 @@ p {
     margin-top: 0px;
   }
   .on {
-    font-size: 18vw;
+    font-size: 15vw;
   }
   .the,
   .kitchen_club {
@@ -315,8 +315,11 @@ p {
     flex-direction: column;
     margin: 10px;
   }
+  .content>h5{
+    margin: 0;
+  }
   .content > p {
-    font-size: XX-small;
+    font-size: 2vw;
     margin: 5px;
   }
   .welcome_content_two {

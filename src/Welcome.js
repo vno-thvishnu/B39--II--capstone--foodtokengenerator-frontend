@@ -47,11 +47,12 @@ function Welcome() {
               <h2 className="oldnew">Old & New</h2>
               <h5 className="dishes">DISHES</h5>
               <p>
-                we are specialist making old and new foods, spices. we serve
+                {/* we are specialist making old and new foods, spices. we serve
                 with our love .<br />
                 successfully finished 20years. Lorem Ipsum is simply dummy text
                 of the printing and typesetting industry. Lorem Ipsum has been
-                the industry's standard dummy text ever since the 1500s
+                the industry's standard dummy text ever since the 1500s */}
+                We are specialists in making old and new foods with spices. We provide 250+ dishes. We serve with love. successfully finished 20 years. We had four branches in Chennai and 10 in all of Tamil Nadu. Now you can order your food online.
               </p>
             </div>
           </div>

@@ -48,11 +48,15 @@ function Login() {
       return error;
     },
     onSubmit: async (values) => {
+
       try {
+        setButtonLoading(true)
         const server = await axios.post(`${config.api}/login`, values);
         if (server.data.message === "email or password incorrect") {
           setFailModal(true);
           setDisplaymsg(server.data.message);
+        setButtonLoading(false)
+
         }
         if (server.data.message === "User Login successfully") {
           setLoginBy(server.data);
@@ -60,6 +64,8 @@ function Login() {
 
           localStorage.setItem("loginperson", server.data.user_id);
           setLoginsuccessRouter("/user_dashboard");
+        setButtonLoading(false)
+
           setLoginsuccessModal(true);
           setDisplaymsg(server.data.message);
           formik.resetForm();
@@ -69,6 +75,8 @@ function Login() {
           localStorage.setItem("loginperson_admin", server.data.admin_id);
 
           setLoginsuccessRouter("/admin_dashboard");
+        setButtonLoading(false)
+
           setLoginsuccessModal(true);
           setDisplaymsg(server.data.message);
           formik.resetForm();
@@ -80,6 +88,7 @@ function Login() {
 
           localStorage.setItem("loginperson_user", server.data.user_id);
           localStorage.setItem("loginperson_admin", server.data.admin_id);
+          setButtonLoading(false)
 
           setAlertmodal(true);
           setDisplaymsg(server.data.message);
@@ -102,6 +111,8 @@ function Login() {
       setPasswordDisplay("Show");
     }
   };
+
+  const[buttonloading,setButtonLoading]=useState(false)
 
   return (
     <>
@@ -159,7 +170,12 @@ function Login() {
             type="submit"
             className="login_btn"
           >
-            Login
+            {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"Login"}
           </button>
 
          

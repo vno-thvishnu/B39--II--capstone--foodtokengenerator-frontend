@@ -76,21 +76,28 @@ function Adminregister() {
     },
     onSubmit: async (values) => {
       try {
+        setButtonLoading(true)
         const server = await axios.post(`${config.api}/admin/register`, values);
 
         if (
           server.data.message === "Email-id already registered, use another"
         ) {
+        setButtonLoading(false)
+
           setFailModal(true);
           setDisplaymsg(server.data.message);
         }
         if (server.data.message === "Admin Account created successfully") {
+        setButtonLoading(false)
+
           setSuccessModal(true);
           setDisplaymsg(server.data.message);
           formik.resetForm();
         }
 
         if (server.data.message === "User account finded in this email_id") {
+        setButtonLoading(false)
+
           setDivisionopen(false);
           setDisplaymsg(server.data.message);
 
@@ -161,6 +168,8 @@ function Adminregister() {
   const checking = () => {
     setCheck(!check);
   };
+  const[buttonloading,setButtonLoading]=useState(false)
+
   return (
     <>
       <div className="verification_box">
@@ -281,7 +290,12 @@ function Adminregister() {
                 type="submit"
                 className="login_btn"
               >
-                Create
+                  {buttonloading?<>
+              <div class="blocks mtzero ">
+                                            <div class="block orange forbtnspinner"></div>
+                                            <div class="block blue forbtnspinner"></div>
+                                          </div>
+            </>:"Create"}
               </button>
               <Link to="/" className="back_btn">
                 Back
