@@ -161,6 +161,8 @@ function Login() {
           >
             Login
           </button>
+
+         
           <div className="login_links">
             <Link className="link" to="/forgotpassword">
               Forgot password
@@ -177,7 +179,13 @@ function Login() {
             <Link className="link" to="/user_register">
               User-Sign up
             </Link>
+            
           </div>
+          <div className="fordiplayId"><p><span>User ID : </span>user@gmail.com</p>
+          <p><span>Admil Id : </span>admin@gmail.com</p> </div>
+
+          <div className="fordiplayId"><p><span>Password : </span>12345678</p></div>
+
         </form>
       </div>
     </>

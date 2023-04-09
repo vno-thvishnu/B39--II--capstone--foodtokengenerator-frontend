@@ -23,6 +23,8 @@ function Welcome() {
       setFirsttouch(true);
       forsidebar();
     }
+    // setFirsttouch(true)
+    // rightpart(false)
   };
 
   return (
